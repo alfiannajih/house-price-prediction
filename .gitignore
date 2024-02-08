@@ -160,4 +160,5 @@ cython_debug/
 #.idea/
 
 # datasets
-collected_data_lamudi
+collected_data_lamudi/
+collected_data_rumah123/
