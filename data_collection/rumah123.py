@@ -9,10 +9,10 @@ from tqdm import tqdm
 from selenium.common.exceptions import TimeoutException
 
 driver = webdriver.Firefox()
-#driver.implicitly_wait(2)
+driver.implicitly_wait(0.5)
 
-def open_website(city):
-    link = "https://www.rumah123.com/jual/{}/rumah".format(city)
+def open_website(city, certif, furnish):
+    link = "https://www.rumah123.com/jual/{}/rumah/?certificates[]={}&furnish[]={}&page=1".format(city, certif, furnish)
     driver.set_page_load_timeout(10)
     
     try:
@@ -23,7 +23,7 @@ def open_website(city):
 
     #time.sleep(1)
 
-def scrape_house_information():
+def scrape_house_information(additional):
     """
     Scrapes house information from a web page and returns a list of dictionaries containing details such as location, description, bedroom, building area, land area, and price for each house.
     """
@@ -39,7 +39,7 @@ def scrape_house_information():
             break
         except:
             driver.refresh()
-            time.sleep(2)
+            time.sleep(1)
     
     # step 3: scroll to bottom
     driver.execute_script("arguments[0].scrollIntoView();", house_list[-1])
@@ -90,7 +90,7 @@ def scrape_house_information():
         house_price = house_entity.find_element(By.CLASS_NAME, "card-featured__middle-section__price").text
         house_info["price"] = house_price
 
-        houses.append(house_info)
+        houses.append(house_info|additional)
     
     return houses
 
@@ -115,18 +115,22 @@ def save_json(json_data, output_file):
             outfile.write('\n')
 
 # Execute scraping process
-def scraping_process(cities):
+def scraping_process(cities, certif, furnish):
     """
     Scrapes house information from the given list of cities by iterating through each city, opening the website, and scraping 50 pages of house data. It saves the collected data as a JSON file for each city in the specified directory. 
     :param cities: list of cities to scrape house information from
     :return: None
     """
     for city in cities:
-        open_website(city)
+        open_website(city, certif, furnish)
         print("Scraping {}...".format(city))
         # Scrape 50 pages
-        for i in tqdm(range(50)):
-            save_json(scrape_house_information(), "data_collection/collected_data_rumah123/{}".format(city))
+        for i in tqdm(range(1000)):
+            additional = {
+                "certif": certif,
+                "furnish": furnish
+            }
+            save_json(scrape_house_information(additional), city)
             
             # Attempt to click next page button 5 times
             attempt = 0
@@ -142,44 +146,15 @@ def scraping_process(cities):
                 break
 
         time.sleep(1)
-
-provinces = [
-    #"aceh",
-    #"sumatera-utara",
-    #"sumatera-selatan",
-    #"sumatera-barat",
-    #"bengkulu",
-    #"riau",
-    #"kepulauan-riau",
-    #"jambi",
-    #"lampung",
-    #"kepulauan-bangka-belitung",
-    #"kalimantan-barat",
-    #"kalimantan-timur",
-    #"kalimantan-selatan",
-    #"kalimantan-tengah",
-    #"kalimantan-utara",
-    #"banten",
-    "dki-jakarta",
-    "jawa-barat",
-    "jawa-tengah",
-    "daerah-istimewa-yogyakarta",
-    "jawa-timur",
-    "bali",
-    "nusa-tenggara-barat",
-    "nusa-tenggara-timur",
-    "gorontalo",
-    "sulawesi-barat",
-    "sulawesi-tengah",
-    "sulawesi-utara",
-    "seulawesi-tenggara",
-    "sulawesi-selatan",
-    "maluku-utara",
-    "maluku",
-    "papua-barat",
-    "papua"
+cities = [
+    "jakarta-pusat",
+    "jakarta-utara",
+    "jakarta-timur",
+    "jakarta-selatan",
+    "jakarta-barat"
 ]
+# certif 1: SHM, 2: HGB
+# furnish 1: furnished, 3: unfurnished
+scraping_process(["jakarta-selatan"], certif=1, furnish=1)
 
-scraping_process(provinces)
-
-print("test")
+print("Done!")
