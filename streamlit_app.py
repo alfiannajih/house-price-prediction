@@ -9,6 +9,9 @@ pipeline_path = "model/pipeline.pkl"
 model = pickle.load(open(model_path, "rb"))
 pipeline = pickle.load(open(pipeline_path, "rb"))
 
+st.set_page_config("House Price Prediction", page_icon="🏡")
+st.header("House Price Prediction in Jakarta 🏡")
+
 sample_data = {
     "location": "Bendungan Hilir, Jakarta Pusat",
     "certif": "SHM",
@@ -57,9 +60,6 @@ def predict(location, certif, furnish, bed, bath, carport, land_area, building_a
     return determine_price(model.predict(X)[0])
 
 def main():
-    st.set_page_config("House Price Prediction", page_icon="🏡")
-    st.info(body="House Price Prediction in Jakarta", icon="🏡")
-    
     # following lines create boxes in which user can enter data required to make prediction 
     location = st.text_input("Location")
     certif = st.selectbox("Certificate",("SHM","HGB")) 

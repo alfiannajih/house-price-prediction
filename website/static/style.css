@@ -1,0 +1,180 @@
+* {
+    font-family: sans-serif;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    background-color: #429EA6;
+}
+
+/* INDEX */
+/* Style the top navigation bar */
+/* Add a black background color to the top navigation */
+.topnav {
+    background-color: #153b50;
+    overflow: hidden;
+}
+
+/* Style the links inside the navigation bar */
+.topnav a {
+    float: left;
+    color: #ecebe4;
+    text-align: center;
+    padding: 14px 25px;
+    text-decoration: none;
+    font-size: 17px;
+}
+
+/* Change the color of links on hover */
+.topnav a:hover {
+    background-color: #ddd;
+    color: black;
+}
+
+/* Move to the right*/
+.topnav-right {
+    float: right;
+    margin: .5em 1em .5em 1em;
+}
+
+main {
+    padding: 1em 1em 1em 1em;
+    display: flex;
+    justify-content: center;
+}
+
+.box {
+    width: 30%;
+    margin: 10% 0;
+    text-align: center;
+    color: #153b50;
+}
+
+.site-footer {
+    text-align: center;
+    background: #153b50;
+    margin-top: auto;
+    padding: 1em 0;
+}
+
+.site-footer p {
+    color: #ecebe4;
+    margin-bottom: 0;
+}
+
+.check a {
+    background-color: #153b50;
+    font-weight: bold;
+    border: none;
+    color: #e8e7e1;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    border-radius: 12px;
+}
+
+.check a:hover {
+    background-color: #0c222d;
+    color: #e8e7e1;
+}
+
+/* SIGN UP */
+.box-field {
+    background-color: #dbdad7;
+    width: 20em;
+    border-radius: 12px;
+    padding: .5em 1em 1em 1em;
+}
+
+.field {
+    margin: 1em 0;
+    text-align: start;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.box-field h3 {
+    text-align: center;
+    font-size: 24px;
+}
+
+input {
+    width: 100%;
+    height: 30px;
+    border-radius: 8px;
+    border: none;
+}
+
+label {
+    margin-bottom: .5em;
+    margin-right: .5em;
+    display: block;
+}
+
+.btn {
+    background-color: #153b50;
+    color: #ecebe4;
+    margin-top: 10px;
+}
+
+.box-predict {
+    background-color: #dbdad7;
+    width: 25em;
+    border-radius: 12px;
+    padding: .5em 1em 1em 1em;
+}
+
+.box-predict h3 {
+    text-align: center;
+    font-size: 24px;
+}
+
+.column2 {
+    float: left;
+    width: 50%;
+}
+
+.column3 {
+    float: left;
+    width: 33%;
+}
+  
+/* Clear floats after the columns */
+.row:after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
+select {
+    background-color: white;
+    width: 80%;
+    height: 30px;
+    padding: 0 5px;
+    border-radius: 8px;
+    border: none;
+}
+
+.triplet {
+    width: 80%;
+}
+
+.box-welcome {
+    background-color: #dbdad7;
+    width: 30em;
+    border-radius: 12px;
+    padding: 2em;
+}
+
+.error {
+    background-color: #cc998d;
+    color: #16F4D0;
+    padding: .5em;
+}
+
+.success {
+    font-weight: bolder;
+}
